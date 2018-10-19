@@ -19,10 +19,12 @@ out_img_height = 1024
 out_img_width = 768
 distance_threshold = 40
 discard_threshold_for_width = 40
+discard_threshold_for_height = 400
 debug = True
 
 
 def worker(folder_path, csv):
+
     csv_path = os.path.join(folder_path, csv)
     img_path = csv_path[:-3].replace('out', 'org') + 'png'
 
@@ -80,7 +82,11 @@ def worker(folder_path, csv):
                     box['top'] = np.min([box['top'], row['top']])
                     box['height'] = np.max([box['height'], row['height']])
                 else:
-                    if box['width'] >= discard_threshold_for_width:
+                    if (
+                            (box['width'] >= discard_threshold_for_width)
+                            and
+                            (box['height'] <= discard_threshold_for_height)
+                    ):
                         boxes.append(box)
                     box = row[['left', 'top', 'width', 'height']]
 

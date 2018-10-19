@@ -2,6 +2,7 @@
 
 import os
 import cv2
+import time
 import numpy as np
 
 from mrcnn import utils
@@ -21,6 +22,21 @@ def make_datasets(validate_ratio=0.2, data_set_path=DEFAULT_PATH):
     ]
 
     train_img_paths, validate_img_paths = train_test_split(img_paths, test_size=validate_ratio, shuffle=True)
+
+    print(
+        '[%s] Number of samples for training: %d' %
+        (
+            time.ctime(),
+            len(train_img_paths)
+        )
+    )
+    print(
+        '[%s] Number of samples for validating: %d' %
+        (
+            time.ctime(),
+            len(validate_img_paths)
+        )
+    )
 
     train_set = InvoiceDataset()
     train_set.search_for_invoices(train_img_paths)

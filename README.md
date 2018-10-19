@@ -14,7 +14,7 @@ Step 1. Make a data set
         distance_threshold = 40                                     # if the horizontal distance between
                                                                     # two boxes is smaller than it, they
                                                                     # are merged to be a larger box
-        discard_threshold_for_width = 40                            # if a box has a width smaller than
+        discard_threshold_for_width = 400                           # if a box has a width smaller than
                                                                     # it, it is discarded
         debug = True                                                # whether or not to store images with 
                                                                     # boxes on them
@@ -24,7 +24,12 @@ Step 1. Make a data set
             and out_masks_path will be the data set folder, which is 'D:\\datasets\\invoices' in the above
             case.
     
-    Note:   On 10/18/2018, the max number of boxes in all images is 408.
+    Note:   On 10/19/2018, the total number of images is 625.
+    
+    Note:   On 10/19/2018, the max number of boxes in all images is 408.
+    
+    Note:   On 10/19/2018, the averages and the averages of the standard deviation of channels are 
+            [244.86987035, 244.86987035, 244.86987035] and [44.69404081, 44.69404081, 44.69404081].
 
 Step 2. Train a model
 

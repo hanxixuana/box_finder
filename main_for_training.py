@@ -20,7 +20,7 @@ if not os.path.exists(COCO_MODEL_PATH):
 
 
 class InvoiceConfig(Config):
-    NAME = "invoices_"
+    NAME = "invoices"
 
     LEARNING_RATE = 0.001
     LEARNING_MOMENTUM = 0.9
@@ -42,12 +42,14 @@ class InvoiceConfig(Config):
     ROI_POSITIVE_RATIO = 0.33
     TRAIN_ROIS_PER_IMAGE = 768
     MAX_GT_INSTANCES = 410
+
+    DETECTION_MIN_CONFIDENCE = 0.7
     DETECTION_MAX_INSTANCES = 768
 
-    MEAN_PIXEL = np.array([230.0, 230.0, 230.0])
+    MEAN_PIXEL = np.array([240.0, 240.0, 240.0])
 
-    STEPS_PER_EPOCH = 200
-    VALIDATION_STEPS = 10
+    STEPS_PER_EPOCH = 400
+    VALIDATION_STEPS = 125
 
 
 def main():
@@ -77,14 +79,21 @@ def main():
         dataset_train,
         dataset_val,
         learning_rate=config.LEARNING_RATE,
-        epochs=50,
+        epochs=30,
         layers='heads'
     )
     model.train(
         dataset_train,
         dataset_val,
         learning_rate=config.LEARNING_RATE / 10,
-        epochs=200,
+        epochs=100,
+        layers="all"
+    )
+    model.train(
+        dataset_train,
+        dataset_val,
+        learning_rate=config.LEARNING_RATE / 100,
+        epochs=300,
         layers="all"
     )
 
